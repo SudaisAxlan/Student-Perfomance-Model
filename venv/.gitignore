@@ -1,0 +1,25 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment folders
+venv/
+ENV/
+env/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VSCode settings
+.vscode/
+
+# Environment/config files
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
