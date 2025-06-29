@@ -2,9 +2,14 @@ import pandas as pd
 import numpy as np
 import matplotlib as mlt
 import seaborn as sns
+from sklearn.metrics import mean_squared_error, r2_score
+
 from sklearn.preprocessing import LabelEncoder,StandardScaler
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
 
 
 df=pd.read_csv("StudantPer.csv")
@@ -85,15 +90,43 @@ df[numeric_feature]=scale.fit_transform(df[numeric_feature])
 # Feature Enginering Steps Start
 # New Features
 
-print(df.head())
+# print(df.head())
 df["Study_faimlySupport"]=df["HoursStudied/Week"]* df["Parent Education"]
 df["Study_Attend"] = df["HoursStudied/Week"] * df["Attendance"]
 print("**************")
-print(df.head())
+# print(df.head())
 
 
 # Spliting Data
-X = df.drop("Exam_Score","", axis=1)
+X = df.drop("Exam_Score", axis=1)
 y = df["Exam_Score"]
 x=df
 x_train,x_test,y_train,y_test=train_test_split(X,y,test_size=0.2)
+
+
+# Selection And Training Model
+
+# Linear Model
+linerModel=LinearRegression()
+linerModel.fit(X,y)
+y_pre=linerModel.predict(x_test)
+print("Linear Reagaeartion R2 Score:", r2_score(y_test, y_pre))
+print(" Linear Reagaeartion  MSE",mean_squared_error(y_test,y_pre))
+
+print("******")
+# Decision Tree Model
+destion_treeModel=DecisionTreeRegressor()
+destion_treeModel.fit(X,y)
+destion_y_predt=destion_treeModel.predict(x_test)
+print("Destion Tree R2 Score ",r2_score(y_test,destion_y_predt))
+print("Destion Tree MSE Score ",mean_squared_error(y_test,destion_y_predt))
+
+print("***********")
+# RandomForest Model
+randomForestModel=RandomForestRegressor()
+randomForestModel.fit(X,y)
+y_predt_RandomForest=randomForestModel.predict(x_test)
+print("Randeom orest r2 Score",r2_score(y_test,y_predt_RandomForest))
+print("Randrrom Foest r2 MSE",mean_squared_error(y_test,y_predt_RandomForest))
+
+
