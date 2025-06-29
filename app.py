@@ -24,7 +24,7 @@ def predict():
     # Feature Engineering (same as training)
     study_fam = hours * parent
     study_att = hours * attendance
-
+    
     # Combine features into one array
     input_features = np.array([[hours, attendance, tutoring, region, parent, study_fam, study_att]])
 
