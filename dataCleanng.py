@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
+import joblib
 
 
 df=pd.read_csv("StudantPer.csv")
@@ -40,7 +41,7 @@ for i in catorracl_data:
 
 # Scaling Data
 numeric_feature=["HoursStudied/Week","Attendance"]
-df[numeric_feature]=scale.fit_transform(df[numeric_feature])
+# df[numeric_feature]=scale.fit_transform(df[numeric_feature])
 # print(df.head())
 
 
@@ -89,10 +90,10 @@ df[numeric_feature]=scale.fit_transform(df[numeric_feature])
 
 # Feature Enginering Steps Start
 # New Features
-
 # print(df.head())
 df["Study_faimlySupport"]=df["HoursStudied/Week"]* df["Parent Education"]
 df["Study_Attend"] = df["HoursStudied/Week"] * df["Attendance"]
+print(df.describe(include="all"))
 print("**************")
 # print(df.head())
 
@@ -128,5 +129,10 @@ randomForestModel.fit(X,y)
 y_predt_RandomForest=randomForestModel.predict(x_test)
 print("Randeom orest r2 Score",r2_score(y_test,y_predt_RandomForest))
 print("Randrrom Foest r2 MSE",mean_squared_error(y_test,y_predt_RandomForest))
+
+
+# Save Model
+joblib.dump(destion_treeModel, "decision_tree_model.pkl")
+print("Model saved successfully!")
 
 
