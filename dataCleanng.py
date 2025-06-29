@@ -4,6 +4,7 @@ import matplotlib as mlt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder,StandardScaler
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
 
 df=pd.read_csv("StudantPer.csv")
@@ -35,7 +36,7 @@ for i in catorracl_data:
 # Scaling Data
 numeric_feature=["HoursStudied/Week","Attendance"]
 df[numeric_feature]=scale.fit_transform(df[numeric_feature])
-print(df.head())
+# print(df.head())
 
 
 
@@ -49,6 +50,8 @@ print(df.head())
 # # Check relationships between features and target
 
 # sns.scatterplot(x="HoursStudied/Week", y="Exam_Score", data=df)
+# plt.title("Study Hours vs Exam Score")
+# sns.scatterplot(x="HoursStudied/Week", y="Parent Education", data=df)
 # plt.title("Study Hours vs Exam Score")
 
 # sns.scatterplot(x="Tutoring", y="Exam_Score", data=df)
@@ -74,10 +77,23 @@ print(df.head())
 
 # plt.title("Study Hours vs Exam Score")
 
-
-
 #Understanding distributions 
 # sns.histplot(df["HoursStudied/Week"], kde=True)
 # plt.show()
 
 
+# Feature Enginering Steps Start
+# New Features
+
+print(df.head())
+df["Study_faimlySupport"]=df["HoursStudied/Week"]* df["Parent Education"]
+df["Study_Attend"] = df["HoursStudied/Week"] * df["Attendance"]
+print("**************")
+print(df.head())
+
+
+# Spliting Data
+X = df.drop("Exam_Score","", axis=1)
+y = df["Exam_Score"]
+x=df
+x_train,x_test,y_train,y_test=train_test_split(X,y,test_size=0.2)
