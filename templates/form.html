@@ -1,97 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>🎓 Student Exam Score Predictor</title>
-    <style>
-        body {
-            background-color: #f5f7fa;
-            font-family: Arial, sans-serif;
-            padding: 40px;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            background: white;
-            border-radius: 10px;
-        }
+  <meta charset="UTF-8" />
+  <title>🎓 Student Exam Score Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-        }
+    body {
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
 
-        label {
-            font-weight: bold;
-            color: #34495e;
-        }
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      animation: slide-in 0.6s ease-out;
+    }
 
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+    @keyframes slide-in {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        input[type="submit"] {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
 
-        input[type="submit"]:hover {
-            background-color: #27ae60;
-        }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #34495e;
+    }
 
-        .result {
-            text-align: center;
-            color: #2980b9;
-            font-size: 20px;
-            margin-top: 20px;
-        }
-    </style>
+    input,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      background-color: #f9f9f9;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #2980b9;
+      outline: none;
+      background-color: #fff;
+    }
+
+    input[type="submit"] {
+      background: linear-gradient(to right, #2ecc71, #27ae60);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background: linear-gradient(to right, #27ae60, #2ecc71);
+    }
+
+    .result {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 20px;
+      color: #2980b9;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
+  <div class="container">
     <h2>🎓 Student Exam Score Predictor</h2>
 
     <form action="/predict" method="post">
 
-        <label for="hours">Hours Studied:</label>
-        <input type="number" name="hours" step="0.1" min="0" placeholder="e.g. 5.5" required>
+      <label for="hours">Hours Studied:</label>
+      <input type="number" name="hours" step="0.1" min="0" placeholder="e.g. 5.5" required />
 
-        <label for="attendance">Attendance (%):</label>
-        <input type="number" name="attendance" step="1" min="0" max="100" placeholder="e.g. 85" required>
+      <label for="attendance">Attendance (%):</label>
+      <input type="number" name="attendance" step="1" min="0" max="100" placeholder="e.g. 85" required />
 
-        <label for="tutoring">Tutoring:</label>
-        <select name="tutoring" required>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-        </select>
+      <label for="tutoring">Tutoring:</label>
+      <select name="tutoring" required>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
 
-        <label for="region">Region:</label>
-        <select name="region" required>
-            <option value="1">Rural</option>
-            <option value="2">Urban</option>
-        </select>
+      <label for="region">Region:</label>
+      <select name="region" required>
+        <option value="1">Rural</option>
+        <option value="2">Urban</option>
+      </select>
 
-        <label for="parent">Parent Education:</label>
-        <select name="parent" required>
-            <option value="0">Highschool</option>
-            <option value="1">Bachelor</option>
-            <option value="2">Master</option>
-        </select>
+      <label for="parent">Parent Education:</label>
+      <select name="parent" required>
+        <option value="0">Highschool</option>
+        <option value="1">Bachelor</option>
+        <option value="2">Master</option>
+      </select>
 
-        <input type="submit" value="Predict Exam Score">
+      <input type="submit" value="Predict Exam Score" />
     </form>
 
     {% if prediction %}
-        <div class="result">
-            🎯 <strong>Predicted Exam Score:</strong> {{ prediction }}
-        </div>
+      <div class="result">
+        🎯 Predicted Exam Score: {{ prediction }}
+      </div>
     {% endif %}
+  </div>
 
 </body>
 </html>
